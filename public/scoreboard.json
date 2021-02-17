@@ -1,0 +1,49 @@
+{
+  "date": "February 12, 2021",
+  "scores": [
+    {
+      "home": { "name": "Hornets", "total": "120" },
+      "away": { "name": "Timberwolves", "total": "114" }
+    },
+    {
+      "home": { "name": "Wizards", "total": "91" },
+      "away": { "name": "Knicks", "total": "109" }
+    },
+    {
+      "home": { "name": "Hawks", "total": "114" },
+      "away": { "name": "Spurs", "total": "125" }
+    },
+    {
+      "home": { "name": "Mavericks", "total": "143" },
+      "away": { "name": "Pelicans", "total": "130" }
+    },
+    {
+      "home": { "name": "Bulls", "total": "106" },
+      "away": { "name": "Clippers", "total": "125" }
+    },
+    {
+      "home": { "name": "Celtics", "total": "102" },
+      "away": { "name": "Pistons", "total": "108" }
+    },
+    {
+      "home": { "name": "Nuggets", "total": "97" },
+      "away": { "name": "Thunder", "total": "95" }
+    },
+    {
+      "home": { "name": "Jazz", "total": "129" },
+      "away": { "name": "Bucks", "total": "115" }
+    },
+    {
+      "home": { "name": "Lakers", "total": "115" },
+      "away": { "name": "Grizzlies", "total": "105" }
+    },
+    {
+      "home": { "name": "Trail Blazers", "total": "129" },
+      "away": { "name": "Cavaliers", "total": "110" }
+    },
+    {
+      "home": { "name": "Kings", "total": "112" },
+      "away": { "name": "Magic", "total": "123" }
+    }
+  ]
+}
