@@ -25,6 +25,7 @@ export default {
       searchDate: undefined,
       isFetchingData: false,
       gameData: undefined,
+      
 
 
 
