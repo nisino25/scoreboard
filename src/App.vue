@@ -1,4 +1,5 @@
 <template>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <input type="text" v-model="searchDate" >
   <button @click="getScores()">Get the score of {{searchDate}} on console</button>
 
@@ -25,7 +26,7 @@ export default {
       searchDate: undefined,
       isFetchingData: false,
       gameData: undefined,
-      
+
 
 
 
