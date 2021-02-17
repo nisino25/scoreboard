@@ -47,7 +47,7 @@ export default {
       // const query = this.query
 
 
-      const URL = 'http://data.nba.net/10s/prod/v1/'+ this.searchDate + '/scoreboard.json'
+      const URL = 'https://data.nba.net/10s/prod/v1/'+ this.searchDate + '/scoreboard.json'
       // const URL = 'http://data.nba.net/10s/prod/v1/20210215/scoreboard.json'
       console.log('Calling API')
       console.log(URL)
