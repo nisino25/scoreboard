@@ -1,8 +1,6 @@
 <template>
-  <input type="text" v-model="searchDate" ><br>
-  <button>Go back</button>
-  <button @click="getScores()">Get the score of </button> 
-  <button>Next</button>
+  <input type="date" v-model="beforeEdit" ><br>
+  <button @click="getScores('special')">Get the score</button> 
   <br><br>
   <button @click="getScores('yesterday')">Yesterday</button>
   <button @click="getScores('today')">Today</button>
@@ -12,10 +10,12 @@
 
   <div v-if="gameData && !(isFetchingData) && !(hasFailed)">
     <div v-for="(game, i) in gameData.games" :key="i">
+      <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.hTeam.triCode + `.svg`" alt="" class="teamLogo">
       <strong>{{game.hTeam.triCode}}</strong>&nbsp; <small>{{game.hTeam.score}}</small>&nbsp;
       <!-- <strong>{{game.period.current}}</strong>&nbsp; -->
+      <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.vTeam.triCode + `.svg`" alt="" class="teamLogo">
       <strong>{{game.vTeam.triCode}}</strong>&nbsp; <small>{{game.vTeam.score}}</small>&nbsp;&nbsp;
-      <span style="color:red" v-if="!game.isGameActivated && game.period.current >= 4">OVER</span>
+      <span style="color:red" v-if="!game.isGameActivated && game.period.current >= 4">FINAL</span>
       <span style="color:red" v-else-if="game.period.current !==0">{{game.period.current}}Q {{game.clock}}</span>
       <small  v-else-if="game.period.current === 0" >{{game.startTimeEastern}}</small>
       <hr>
@@ -29,7 +29,7 @@
     <strong>Loading.....</strong>
   </div>
   <div v-if="hasFailed && !(isFetchingData)"><br><br><br>
-    Sorry the latest data you can get is 
+    Sorry the latest data you can get is 20141118
   </div>
   
   
@@ -45,6 +45,7 @@ export default {
       isFetchingData: false,
       gameData: undefined,
       displayDate: undefined,
+      beforeEdit: undefined,
 
 
 
@@ -105,6 +106,10 @@ export default {
           dd = d < 10 ? '0' + d : d;
           this.searchDate  = '' + y + mm + dd
           break;
+
+        case 'special':
+          this.searchDate = this.beforeEdit.replace('-', '');
+          this.searchDate = this.searchDate.replace('-', '');
         
         
       }
@@ -152,4 +157,9 @@ export default {
 </script>
 
 <style>
+.teamLogo{
+  height: 20px;
+  width: auto;
+  margin-right: 5px;
+}
 </style>
