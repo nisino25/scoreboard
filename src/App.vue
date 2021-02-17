@@ -10,10 +10,8 @@
       <!-- <strong>{{game.period.current}}</strong>&nbsp; -->
       <strong>{{game.vTeam.triCode}}</strong>&nbsp; <small>{{game.vTeam.score}}</small>&nbsp;&nbsp;
       <span style="color:red" v-if="!game.isGameActivated && game.period.current >= 4">OVER</span>
-      <!-- <span style="color:red" v-if="game.gameDuration.hours !== ''">{{game.period.current}}Q</span> -->
-      <span style="color:red" v-else-if="game.period.current !==0">{{game.period.current}}Q</span>
-      <!-- <span v-else style="color:red"></span> -->
-      <!-- <span>{{game.gameDuration.hours}} </span>  -->
+      <span style="color:red" v-else-if="game.period.current !==0">{{game.period.current}}Q {{game.clock}}</span>
+      <small  v-else-if="game.period.current === 0" >{{game.startTimeEastern}}</small>
       <hr>
 
     </div>
