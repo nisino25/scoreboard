@@ -16,7 +16,9 @@
       <strong>{{game.vTeam.triCode}}</strong>&nbsp; <small>{{game.vTeam.score}}</small>&nbsp;&nbsp;
       <span style="color:red" v-if="!game.isGameActivated && game.period.current >= 4">FINAL</span>
       <span style="color:red" v-else-if="game.period.current !==0">{{game.period.current}}Q {{game.clock}}</span>
-      <small  v-else-if="game.period.current === 0" >{{game.startTimeEastern}}</small>
+
+      <small v-else-if="game.period.current === 0">{{game.startTimePST}}</small>
+      <small :style="game.colorOfTheString"></small>
       <hr>
       
 
@@ -128,10 +130,82 @@ export default {
         this.hasFailed = false
         this.gameData = json 
         this.isFetchingData = false
+
+        let i =0
+        let beforeCal = undefined;
+        let pureTime = undefined
+        let afterCal = undefined;
+        let editedString = undefined;
+        let getAMPMString = undefined;
+
+        
+
+        while(i < this.gameData.games.length){
+          this.gameData.games[i].colorOfTheString = "color: black"
+          if(this.gameData.games[i].period.current === 0){
+            this.gameData.games[i].colorOfTheString === 'black'
+            beforeCal = Number(this.gameData.games[i].startTimeEastern.split(':')[0]) - 3;
+            pureTime =  Number(this.gameData.games[i].startTimeEastern.split(':')[0]) ;
+            if(pureTime<=3 && pureTime >=0){
+              afterCal = beforeCal + 12;
+              getAMPMString = 'AM'
+              if(beforeCal === 0){
+                getAMPMString = 'PM'
+                console.log('you called me ')
+              }
+            }else if(beforeCal === 9){
+              afterCal = beforeCal
+              console.log('jhue')
+              getAMPMString = 'AM'
+            }else{
+              afterCal = beforeCal
+              getAMPMString =this.gameData.games[i].startTimeEastern.substring(this.gameData.games[i].startTimeEastern.indexOf(" " )+ 1) 
+              getAMPMString = getAMPMString.split(' ')[0];
+              console.log(getAMPMString)
+            }
+            editedString = this.gameData.games[i].startTimeEastern;
+            editedString = editedString.substring(editedString.indexOf(":" )+ 1) 
+            editedString = editedString.split(' ')[0];
+            this.gameData.games[i].startTimePST  = String(afterCal) + ':' + editedString + ' '+ getAMPMString + ' PST'
+            this.gameData.games[i].gameStatus = String(afterCal) + ':' + editedString + ' '+ getAMPMString + ' PST'
+
+          }else if(this.gameData.games[i].period.isHalftime){
+            this.gameData.games[i].colorOfTheString === 'red'
+            this.gameData.games[i].gameStatus = 'Half Time'
+          }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current >=4 ){
+            this.gameData.games[i].colorOfTheString === 'red'
+            this.gameData.games[i].gameStatus = this.gameData.games[i].period.current + 'Q ' + this.gameData.games[i].clock
+          }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current >=3 && this.gameData.games[i].period.isEndOfPeriod){
+            this.gameData.games[i].colorOfTheString === 'red'
+            this.gameData.games[i].gameStatus = 'End of ' + this.gameData.games[i].period.current + 'Q ' 
+          }else if(this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current >= 4){
+            this.gameData.games[i].colorOfTheString === 'red'
+            this.gameData.games[i].gameStatus = String(this.gameData.games[i].period.current -4) + 'OT' + this.gameData.games[i].clock
+          }else if(!this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current >= 4){
+            this.gameData.games[i].colorOfTheString === 'red'
+            this.gameData.games[i].gameStatus = 'Final'
+          }
+           
+
+
+          // end of quarter
+          // middle of quarter
+          // before game
+          // overtime
+          // After game
+
+
+
+          i++
+        }
+
+        console.log(this.gameData.games)
       }else{
         this.hasFailed = true
         this.isFetchingData = false;
       }
+
+    
      
       // console.log(this.gameData.games.length)
       
