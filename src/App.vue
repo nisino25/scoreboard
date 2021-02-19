@@ -1,7 +1,6 @@
 <template>
   <input type="date" v-model="beforeEdit" ><br>
-  <button @click="getScores('special')">Get the score</button> 
-  <br><br>
+  <br>
   <button @click="getScores('yesterday')">Yesterday</button>
   <button @click="getScores('today')">Today</button>
   <button @click="getScores('tomorrow')">Tomorrow</button>
@@ -151,7 +150,13 @@ export default {
 
     this.getScores()
     // this.searchDate = '20210215'
-  }
+  },
+  watch:{
+    beforeEdit: function(){
+      this.getScores('special')
+      console.log(this.beforeEdit)
+    }
+  },
 
 }
 </script>
