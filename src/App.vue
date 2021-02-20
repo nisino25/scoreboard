@@ -14,11 +14,7 @@
       <!-- <strong>{{game.period.current}}</strong>&nbsp; -->
       <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.vTeam.triCode + `.svg`" alt="" class="teamLogo">
       <strong>{{game.vTeam.triCode}}</strong>&nbsp; <small>{{game.vTeam.score}}</small>&nbsp;&nbsp;
-      <span style="color:red" v-if="!game.isGameActivated && game.period.current >= 4">FINAL</span>
-      <span style="color:red" v-else-if="game.period.current !==0">{{game.period.current}}Q {{game.clock}}</span>
-
-      <small v-else-if="game.period.current === 0">{{game.startTimePST}}</small>
-      <small :style="game.colorOfTheString"></small>
+      <small :style="game.colorOfTheString">{{game.gameStatus}}</small>
       <hr>
       
 
@@ -137,6 +133,7 @@ export default {
         let afterCal = undefined;
         let editedString = undefined;
         let getAMPMString = undefined;
+        console.log('------------')
 
         
 
@@ -170,20 +167,31 @@ export default {
             this.gameData.games[i].gameStatus = String(afterCal) + ':' + editedString + ' '+ getAMPMString + ' PST'
 
           }else if(this.gameData.games[i].period.isHalftime){
-            this.gameData.games[i].colorOfTheString === 'red'
+            this.gameData.games[i].colorOfTheString = 'color: red'
             this.gameData.games[i].gameStatus = 'Half Time'
-          }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current >=4 ){
-            this.gameData.games[i].colorOfTheString === 'red'
+            
+          }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current <=4 && this.gameData.games[i].isGameActivated && !this.gameData.games[i].period.isEndOfPeriod){
+            this.gameData.games[i].colorOfTheString = 'color: red'
             this.gameData.games[i].gameStatus = this.gameData.games[i].period.current + 'Q ' + this.gameData.games[i].clock
-          }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current >=3 && this.gameData.games[i].period.isEndOfPeriod){
-            this.gameData.games[i].colorOfTheString === 'red'
+
+          }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current <=3 && this.gameData.games[i].period.isEndOfPeriod){
+             this.gameData.games[i].colorOfTheString = 'color: red'
             this.gameData.games[i].gameStatus = 'End of ' + this.gameData.games[i].period.current + 'Q ' 
+
           }else if(this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current >= 4){
-            this.gameData.games[i].colorOfTheString === 'red'
+             this.gameData.games[i].colorOfTheString = 'color: red'
             this.gameData.games[i].gameStatus = String(this.gameData.games[i].period.current -4) + 'OT' + this.gameData.games[i].clock
-          }else if(!this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current >= 4){
-            this.gameData.games[i].colorOfTheString === 'red'
+
+          }else if(!this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current === 4){
+            this.gameData.games[i].colorOfTheString = 'color: red'
             this.gameData.games[i].gameStatus = 'Final'
+
+          }else if(!this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current > 4){
+            this.gameData.games[i].colorOfTheString = 'color: red'
+            this.gameData.games[i].gameStatus = String(this.gameData.games[i].period.current -4) + 'OT Final'
+
+          }else{
+            console.log('missed')
           }
            
 
