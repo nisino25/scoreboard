@@ -46,6 +46,9 @@ export default {
       displayDate: undefined,
       beforeEdit: undefined,
 
+      updateCount:0,
+
+
 
 
       hasFailed: false,
@@ -117,8 +120,8 @@ export default {
 
       const URL = 'https://data.nba.net/10s/prod/v1/'+ this.searchDate + '/scoreboard.json'
       // const URL = 'http://data.nba.net/10s/prod/v1/20210215/scoreboard.json'
-      console.log('Calling API')
-      console.log(URL)
+      // console.log('Calling API')
+      // console.log(URL)
 
 
       const res = await fetch(URL)
@@ -135,7 +138,7 @@ export default {
         let afterCal = undefined;
         let editedString = undefined;
         let getAMPMString = undefined;
-        console.log('------------')
+        // console.log('------------')
 
         
 
@@ -192,7 +195,7 @@ export default {
             this.gameData.games[i].gameStatus = String(this.gameData.games[i].period.current -4) + ' OT Final'
 
           }else{
-            console.log('missed')
+            // console.log('missed')
           }
 
           
@@ -257,7 +260,7 @@ export default {
           i++
         }
 
-        console.log(this.gameData.games)
+        // console.log(this.gameData.games)
       }else{
         this.hasFailed = true
         this.isFetchingData = false;
@@ -281,14 +284,16 @@ export default {
 
       if(this.searchDate === checkDate){
         this.getScores()
+        this.updateCount++;
+        console.log(`Update ${this.updateCount}`)
       }else{
-        console.log('jeu')
+        console.log('wrong')
       }
 
     }
   },
   created() {
-    this.interval = setInterval(() => this.checkUpdate(), 30000);  
+    this.interval = setInterval(() => this.checkUpdate(), 20000);  
   },
   mounted(){
     // console.log(Date())
