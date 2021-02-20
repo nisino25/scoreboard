@@ -30,11 +30,11 @@
     </div>
   </div>
   <div v-if="gameData &&gameData.games.length === 0 && !(isFetchingData)"><br><br><br> No Games</div>
-  <div v-if="isFetchingData">
+  <div v-if="isFetchingData" style="text-align:center">
     <br><br><br>
     <strong>Loading.....</strong>
   </div>
-  <div v-if="hasFailed && !(isFetchingData)"><br><br><br>
+  <div v-if="hasFailed && !(isFetchingData)" style="text-align:center"><br><br><br>
     Sorry the latest data you can get is 20141118
   </div>
   
