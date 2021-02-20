@@ -1,22 +1,29 @@
 <template>
-  <input type="date" v-model="beforeEdit" ><br>
+  <div style="text-align:center" >
+    <input type="date" v-model="beforeEdit" ><br>
+  </div>
+    
   <br>
-  <button @click="getScores('yesterday')">Yesterday</button>
-  <button @click="getScores('today')">Today</button>
-  <button @click="getScores('tomorrow')">Tomorrow</button>
+  <div style="text-align:center">
+    <button @click="getScores('yesterday')">Yesterday</button> &nbsp;
+    <button @click="getScores('today')">Today</button>&nbsp;
+    <button @click="getScores('tomorrow')">Tomorrow</button>
+
+  </div>
+  
   <br><br>
 
 
   <div v-if="gameData && !(isFetchingData) && !(hasFailed)">
-    <div v-for="(game, i) in gameData.games" :key="i">
+    <div v-for="(game, i) in gameData.games" :key="i" style="text-align:center">
       <img :src="game.hTeam.linkName" alt="" class="teamLogo">
-      <!-- <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.hTeam.triCode + `.svg`" alt="" class="teamLogo"> -->
-      <strong>{{game.hTeam.triCode}}</strong>&nbsp; <small>{{game.hTeam.score}}</small>&nbsp;
-      
-      <!-- <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.vTeam.triCode + `.svg`" alt="" class="teamLogo"> -->
+      <strong>{{game.hTeam.triCode}}</strong>&nbsp; &nbsp;
+      <small>{{game.hTeam.score}}</small>&nbsp;
+      &nbsp;<small :style="game.colorOfTheString">{{game.gameStatus}}</small>&nbsp;
+      &nbsp;<small>{{game.vTeam.score}}</small>&nbsp;&nbsp; &nbsp; 
       <img :src="game.vTeam.linkName" alt="" class="teamLogo">
-      <strong>{{game.vTeam.triCode}}</strong>&nbsp; <small>{{game.vTeam.score}}</small>&nbsp;&nbsp;
-      <small :style="game.colorOfTheString">{{game.gameStatus}}</small>
+      <strong>{{game.vTeam.triCode}}</strong>&nbsp; 
+      
       <hr>
       
 
@@ -323,8 +330,9 @@ export default {
 
 <style>
 .teamLogo{
-  height: 20px;
+  height: 23px;
   width: auto;
-  margin-right: 5px;
+  margin-right: 6px;
+  margin-top: 2px;
 }
 </style>
