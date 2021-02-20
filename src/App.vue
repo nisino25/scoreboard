@@ -160,7 +160,6 @@ export default {
               afterCal = beforeCal
               getAMPMString =this.gameData.games[i].startTimeEastern.substring(this.gameData.games[i].startTimeEastern.indexOf(" " )+ 1) 
               getAMPMString = getAMPMString.split(' ')[0];
-              console.log(getAMPMString)
             }
             editedString = this.gameData.games[i].startTimeEastern;
             editedString = editedString.substring(editedString.indexOf(":" )+ 1) 
@@ -269,6 +268,27 @@ export default {
       // console.log(this.gameData.games.length)
       
     },
+    checkUpdate(){
+      let checkDate = undefined
+
+      let now = new Date();
+      let y = now.getFullYear();
+      let m = now.getMonth() + 1;
+      let d = now.getDate();
+      let mm = m < 10 ? '0' + m : m;
+      let dd = d < 10 ? '0' + d : d;
+      checkDate = '' + y + mm + dd;
+
+      if(this.searchDate === checkDate){
+        this.getScores()
+      }else{
+        console.log('jeu')
+      }
+
+    }
+  },
+  created() {
+    this.interval = setInterval(() => this.checkUpdate(), 30000);  
   },
   mounted(){
     // console.log(Date())
@@ -282,6 +302,8 @@ export default {
 
 
     this.getScores()
+
+   
     // this.searchDate = '20210215'
   },
   watch:{
