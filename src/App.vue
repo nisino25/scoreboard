@@ -9,10 +9,12 @@
 
   <div v-if="gameData && !(isFetchingData) && !(hasFailed)">
     <div v-for="(game, i) in gameData.games" :key="i">
-      <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.hTeam.triCode + `.svg`" alt="" class="teamLogo">
+      <img :src="game.hTeam.linkName" alt="" class="teamLogo">
+      <!-- <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.hTeam.triCode + `.svg`" alt="" class="teamLogo"> -->
       <strong>{{game.hTeam.triCode}}</strong>&nbsp; <small>{{game.hTeam.score}}</small>&nbsp;
-      <!-- <strong>{{game.period.current}}</strong>&nbsp; -->
-      <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.vTeam.triCode + `.svg`" alt="" class="teamLogo">
+      
+      <!-- <img :src="`https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + game.vTeam.triCode + `.svg`" alt="" class="teamLogo"> -->
+      <img :src="game.vTeam.linkName" alt="" class="teamLogo">
       <strong>{{game.vTeam.triCode}}</strong>&nbsp; <small>{{game.vTeam.score}}</small>&nbsp;&nbsp;
       <small :style="game.colorOfTheString">{{game.gameStatus}}</small>
       <hr>
@@ -172,7 +174,7 @@ export default {
             
           }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current <=4 && this.gameData.games[i].isGameActivated && !this.gameData.games[i].period.isEndOfPeriod){
             this.gameData.games[i].colorOfTheString = 'color: red'
-            this.gameData.games[i].gameStatus = this.gameData.games[i].period.current + 'Q ' + this.gameData.games[i].clock
+            this.gameData.games[i].gameStatus = this.gameData.games[i].period.current + 'Q  ' + this.gameData.games[i].clock
 
           }else if(this.gameData.games[i].period.current >=1 && this.gameData.games[i].period.current <=3 && this.gameData.games[i].period.isEndOfPeriod){
              this.gameData.games[i].colorOfTheString = 'color: red'
@@ -188,19 +190,68 @@ export default {
 
           }else if(!this.gameData.games[i].isGameActivated && this.gameData.games[i].period.current > 4){
             this.gameData.games[i].colorOfTheString = 'color: red'
-            this.gameData.games[i].gameStatus = String(this.gameData.games[i].period.current -4) + 'OT Final'
+            this.gameData.games[i].gameStatus = String(this.gameData.games[i].period.current -4) + ' OT Final'
 
           }else{
             console.log('missed')
           }
+
+          
+          
+          switch(this.gameData.games[i].hTeam.triCode){
+            case 'NOP':
+              this.gameData.games[i].hTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/NO.svg';
+              break;
+
+            case 'GSW':
+              this.gameData.games[i].hTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/GS.svg';
+              break;
+            
+            case 'PHX':
+              this.gameData.games[i].hTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/PHO.svg';
+              break;
+
+            case 'NYK':
+              this.gameData.games[i].hTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/NY.svg';
+              break;
+
+            case 'SAS':
+              this.gameData.games[i].hTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/SA.svg';
+              break;
+            default:
+              this.gameData.games[i].hTeam.linkName = `https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + this.gameData.games[i].hTeam.triCode + `.svg`
+              break;
+          }
+
+          switch(this.gameData.games[i].vTeam.triCode){
+            case 'NOP':
+              this.gameData.games[i].vTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/NO.svg';
+              break;
+
+            case 'GSW':
+              this.gameData.games[i].vTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/GS.svg';
+              break;
+            
+            case 'PHX':
+              this.gameData.games[i].vTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/PHO.svg';
+              break;
+
+            case 'NYK':
+              this.gameData.games[i].vTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/NY.svg';
+              break;
+
+            case 'SAS':
+              this.gameData.games[i].vTeam.linkName = 'https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/SA.svg';
+              break;
+            default:
+              this.gameData.games[i].vTeam.linkName = `https://sportsfly.cbsistatic.com/fly-152/bundles/sportsmediacss/images/team-logos/nba/alt/` + this.gameData.games[i].vTeam.triCode + `.svg`
+              break;
+          }
+
+
+
+
            
-
-
-          // end of quarter
-          // middle of quarter
-          // before game
-          // overtime
-          // After game
 
 
 
