@@ -300,7 +300,7 @@ export default {
     }
   },
   created() {
-    this.interval = setInterval(() => this.checkUpdate(), 20000);  
+    this.interval = setInterval(() => this.checkUpdate(), 30000);  
   },
   mounted(){
     // console.log(Date())
