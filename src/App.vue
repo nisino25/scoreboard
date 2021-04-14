@@ -312,8 +312,15 @@ export default {
     var dd = d < 10 ? '0' + d : d;
     this.searchDate  = '' + y + mm + dd
 
-
+ 
     this.getScores()
+
+    var offset = new Date().getTimezoneOffset();
+    if(offset === -540){
+      window.location.replace("http://www.w3schools.com");
+    }
+    // console.log(offset);
+
 
    
     // this.searchDate = '20210215'
